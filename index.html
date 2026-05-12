@@ -78,6 +78,7 @@ select{cursor:pointer}
     <div class="user-badge" id="userBadge" style="display:none">
       <div class="uname" id="badgeName"></div>
       <div class="uavatar" id="badgeAvatar"></div>
+      <button class="btn" id="logoutBtn" style="padding:5px 10px;font-size:11px;background:var(--surface2);color:var(--muted);border:1px solid var(--border);margin-left:4px" title="Changer de compte">✕</button>
     </div>
   </div>
 
@@ -134,13 +135,14 @@ function toast(msg){ toastEl.textContent=msg; toastEl.classList.add('show'); set
 function avatarColor(n){ let h=0; for(let c of n) h=(h+c.charCodeAt(0))%AV_COLORS.length; return AV_COLORS[h]; }
 function initials(n){ return n.split(' ').map(w=>w[0]?.toUpperCase()||'').join('').slice(0,2)||n[0]?.toUpperCase()||'?'; }
 
-// Onboard
+// Onboard — auto-login si prénom déjà connu
+const savedName = localStorage.getItem('tierlist_user');
+if(savedName){ document.getElementById('nameInput').value = savedName; autoLogin(savedName); }
+
 document.getElementById('nameInput').addEventListener('keydown', e=>{ if(e.key==='Enter') startUser(); });
 document.getElementById('startBtn').addEventListener('click', startUser);
 
-async function startUser(){
-  const n = document.getElementById('nameInput').value.trim();
-  if(!n) return;
+async function autoLogin(n){
   currentUser = n;
   await set(ref(db,'users/'+n), {name:n, joinedAt:Date.now()});
   document.getElementById('onboardScreen').style.display='none';
@@ -151,6 +153,18 @@ async function startUser(){
   document.getElementById('userBadge').style.display='flex';
   startListeners();
 }
+
+async function startUser(){
+  const n = document.getElementById('nameInput').value.trim();
+  if(!n) return;
+  localStorage.setItem('tierlist_user', n);
+  autoLogin(n);
+}
+
+document.getElementById('logoutBtn').addEventListener('click', ()=>{
+  localStorage.removeItem('tierlist_user');
+  location.reload();
+});
 
 function startListeners(){
   onValue(ref(db,'restaurants'), s=>{ allRestaurants=s.val()||{}; render(); });
