@@ -7,7 +7,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f0f14;color:#e8e8f0;min-height:100vh}
-:root{--s:#ff4655;--a:#ff9f43;--b:#ffd32a;--c:#2ecc71;--d:#74b9ff;--bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e40;--text:#e8e8f0;--muted:#8888aa;--accent:#7c5cfc}
+:root{--bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e40;--text:#e8e8f0;--muted:#8888aa;--accent:#7c5cfc}
 .app{max-width:920px;margin:0 auto;padding:20px}
 .header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
 .logo{width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
@@ -15,7 +15,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .header .sub{font-size:12px;color:var(--muted);margin-top:2px}
 .user-badge{display:flex;align-items:center;gap:8px;margin-left:auto}
 .uname{font-size:13px;color:var(--muted)}
-.uavatar{width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.uavatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
 .tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--surface);padding:4px;border-radius:10px}
 .tab{flex:1;padding:8px;text-align:center;font-size:13px;font-weight:600;border-radius:7px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .15s}
 .tab.active{background:var(--accent);color:#fff}
@@ -28,25 +28,22 @@ input[type=text],select{background:var(--surface2);border:1px solid var(--border
 input[type=text]:focus,select:focus{border-color:var(--accent)}
 select{cursor:pointer}
 .btn{padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:all .15s}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{opacity:.85}
-.btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{opacity:.85}
 .add-resto{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:20px}
-.add-resto h3{font-size:13px;font-weight:600;margin-bottom:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.add-resto h3{font-size:11px;font-weight:600;margin-bottom:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .add-form{display:flex;gap:8px;flex-wrap:wrap}
 .add-form input{flex:1;min-width:160px}
 .tier-row{display:flex;align-items:stretch;gap:8px;margin-bottom:8px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
 .tier-label{width:52px;min-width:52px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;color:#fff;flex-shrink:0}
-.tier-slots{flex:1;min-height:64px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;background:var(--surface);transition:background .15s}
-.tier-slots.drag-over{background:#7c5cfc33}
-.resto-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 10px;cursor:grab;display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;transition:border .15s;user-select:none;max-width:200px}
-.resto-card:hover{border-color:var(--accent)}
-.resto-card.dragging{opacity:.35}
-.cuisine-tag{font-size:11px;color:var(--muted);background:var(--bg);padding:2px 6px;border-radius:20px;white-space:nowrap}
+.tier-slots{flex:1;min-height:64px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;background:var(--surface);transition:background .15s}
+.tier-slots.over{background:#7c5cfc33}
 .unranked-label{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-top:20px}
-.unranked-zone{background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:12px;min-height:64px;display:flex;flex-wrap:wrap;gap:6px;transition:background .15s}
-.unranked-zone.drag-over{background:#7c5cfc33}
+.unranked-zone{background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:12px;min-height:64px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;transition:background .15s}
+.unranked-zone.over{background:#7c5cfc33}
+.resto-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 10px;cursor:grab;display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;transition:border .15s;user-select:none}
+.resto-card:hover{border-color:var(--accent)}
+.resto-card.dragging{opacity:.3;cursor:grabbing}
+.cuisine-tag{font-size:11px;color:var(--muted);background:var(--bg);padding:2px 6px;border-radius:20px;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
 .stat-card{background:var(--surface);border-radius:10px;padding:14px;text-align:center}
 .stat-card .val{font-size:26px;font-weight:700;color:var(--accent)}
@@ -68,7 +65,6 @@ select{cursor:pointer}
 .empty-state{text-align:center;padding:40px;color:var(--muted);font-size:14px}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
 .toast.show{opacity:1}
-.loading{text-align:center;padding:30px;color:var(--muted);font-size:14px}
 </style>
 </head>
 <body>
@@ -77,7 +73,7 @@ select{cursor:pointer}
     <div class="logo">🍽️</div>
     <div>
       <h1>Restaurant Tierlist</h1>
-      <div class="sub" id="headerSub">L'avis collectif de l'équipe</div>
+      <div class="sub">L'avis collectif de l'équipe</div>
     </div>
     <div class="user-badge" id="userBadge" style="display:none">
       <div class="uname" id="badgeName"></div>
@@ -92,16 +88,16 @@ select{cursor:pointer}
       <p>Classez les restaurants autour du bureau et découvrez l'avis collectif de toute l'équipe.</p>
       <div class="input-row">
         <input type="text" id="nameInput" placeholder="Votre prénom..." maxlength="20">
-        <button class="btn btn-primary" onclick="setUser()">Commencer</button>
+        <button class="btn btn-primary" id="startBtn">Commencer</button>
       </div>
     </div>
   </div>
 
   <div id="mainApp" style="display:none">
     <div class="tabs">
-      <button class="tab active" data-tab="my" onclick="switchTab('my')">Ma liste</button>
-      <button class="tab" data-tab="global" onclick="switchTab('global')">Classement global</button>
-      <button class="tab" data-tab="team" onclick="switchTab('team')">Équipe</button>
+      <button class="tab active" data-tab="my">Ma liste</button>
+      <button class="tab" data-tab="global">Classement global</button>
+      <button class="tab" data-tab="team">Équipe</button>
     </div>
     <div id="panel-my" class="panel active"></div>
     <div id="panel-global" class="panel"></div>
@@ -112,7 +108,7 @@ select{cursor:pointer}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, get, onValue, push, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQD_OtGWvWKLXwJomEhjNuxSbAfcAU48o",
@@ -124,65 +120,54 @@ const firebaseConfig = {
   appId: "1:679501143363:web:3a3d826ef5284023c2a3f6"
 };
 
-const fbApp = initializeApp(firebaseConfig);
-const db = getDatabase(fbApp);
-
-const TIERS = [
-  {id:'S',color:'#ff4655'},{id:'A',color:'#ff9f43'},
-  {id:'B',color:'#ffd32a'},{id:'C',color:'#2ecc71'},{id:'D',color:'#74b9ff'}
-];
+const db = getDatabase(initializeApp(firebaseConfig));
+const TIERS = [{id:'S',color:'#ff4655'},{id:'A',color:'#ff9f43'},{id:'B',color:'#ffd32a'},{id:'C',color:'#2ecc71'},{id:'D',color:'#74b9ff'}];
 const TIER_SCORES = {S:100,A:75,B:50,C:25,D:0};
-const AVATAR_COLORS = ['#7c5cfc','#ff4655','#ff9f43','#2ecc71','#74b9ff','#e056fd','#fd9644','#26de81'];
+const AV_COLORS = ['#7c5cfc','#ff4655','#ff9f43','#2ecc71','#74b9ff','#e056fd','#fd9644','#26de81'];
 
-let currentUser = null;
-let draggedId = null;
-let allRestaurants = {};
-let allRankings = {};
-let allUsers = {};
+let currentUser = null, draggedId = null;
+let allRestaurants = {}, allRankings = {}, allUsers = {};
 let activeTab = 'my';
 
-function toast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
-}
+const toastEl = document.getElementById('toast');
+function toast(msg){ toastEl.textContent=msg; toastEl.classList.add('show'); setTimeout(()=>toastEl.classList.remove('show'),2200); }
+function avatarColor(n){ let h=0; for(let c of n) h=(h+c.charCodeAt(0))%AV_COLORS.length; return AV_COLORS[h]; }
+function initials(n){ return n.split(' ').map(w=>w[0]?.toUpperCase()||'').join('').slice(0,2)||n[0]?.toUpperCase()||'?'; }
 
-function avatarColor(name){
-  let h=0;for(let c of name)h=(h+c.charCodeAt(0))%AVATAR_COLORS.length;
-  return AVATAR_COLORS[h];
-}
-function initials(name){return name.split(' ').map(w=>w[0]?.toUpperCase()||'').join('').slice(0,2)||name[0]?.toUpperCase()||'?'}
+// Onboard
+document.getElementById('nameInput').addEventListener('keydown', e=>{ if(e.key==='Enter') startUser(); });
+document.getElementById('startBtn').addEventListener('click', startUser);
 
-document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')setUser()});
-
-window.setUser = async function(){
-  const n=document.getElementById('nameInput').value.trim();
-  if(!n)return;
-  currentUser=n;
-  await set(ref(db,'users/'+n),{name:n,joinedAt:Date.now()});
+async function startUser(){
+  const n = document.getElementById('nameInput').value.trim();
+  if(!n) return;
+  currentUser = n;
+  await set(ref(db,'users/'+n), {name:n, joinedAt:Date.now()});
   document.getElementById('onboardScreen').style.display='none';
   document.getElementById('mainApp').style.display='block';
-  document.getElementById('badgeName').textContent=n;
-  document.getElementById('badgeAvatar').textContent=initials(n);
-  document.getElementById('badgeAvatar').style.background=avatarColor(n);
+  document.getElementById('badgeName').textContent = n;
+  document.getElementById('badgeAvatar').textContent = initials(n);
+  document.getElementById('badgeAvatar').style.background = avatarColor(n);
   document.getElementById('userBadge').style.display='flex';
   startListeners();
-};
+}
 
 function startListeners(){
-  onValue(ref(db,'restaurants'),snap=>{
-    allRestaurants=snap.val()||{};
-    render();
-  });
-  onValue(ref(db,'rankings'),snap=>{
-    allRankings=snap.val()||{};
-    render();
-  });
-  onValue(ref(db,'users'),snap=>{
-    allUsers=snap.val()||{};
-    render();
-  });
+  onValue(ref(db,'restaurants'), s=>{ allRestaurants=s.val()||{}; render(); });
+  onValue(ref(db,'rankings'),    s=>{ allRankings=s.val()||{};    render(); });
+  onValue(ref(db,'users'),       s=>{ allUsers=s.val()||{};       render(); });
 }
+
+// Tabs
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    activeTab = btn.dataset.tab;
+    document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b===btn));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('panel-'+activeTab).classList.add('active');
+    render();
+  });
+});
 
 function render(){
   if(activeTab==='my') renderMyList();
@@ -190,21 +175,16 @@ function render(){
   else renderTeam();
 }
 
-window.switchTab = function(t){
-  activeTab=t;
-  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+t).classList.add('active');
-  render();
-};
-
+// ── MY LIST ──────────────────────────────────────────────
 function renderMyList(){
-  const el=document.getElementById('panel-my');
-  const restos=Object.values(allRestaurants);
-  const ranking=allRankings[currentUser]||{};
+  const el = document.getElementById('panel-my');
+  const restos = Object.values(allRestaurants);
+  const ranking = allRankings[currentUser] || {};
 
-  let html=`<div class="add-resto">
-    <h3>Ajouter un restaurant</h3>
+  // Add form
+  const addDiv = document.createElement('div');
+  addDiv.className = 'add-resto';
+  addDiv.innerHTML = `<h3>Ajouter un restaurant</h3>
     <div class="add-form">
       <input type="text" id="newName" placeholder="Nom du restaurant" maxlength="40">
       <select id="newCuisine">
@@ -213,141 +193,174 @@ function renderMyList(){
         <option>🌮 Mexicain</option><option>🫕 Indien</option><option>🥐 Français</option>
         <option>🍖 Grill</option><option>🍱 Autre</option>
       </select>
-      <button class="btn btn-primary" onclick="addRestaurant()">Ajouter</button>
-    </div>
-  </div>`;
-
-  TIERS.forEach(tier=>{
-    const inTier=restos.filter(r=>ranking[r.id]===tier.id);
-    html+=`<div class="tier-row">
-      <div class="tier-label" style="background:${tier.color}">${tier.id}</div>
-      <div class="tier-slots" data-tier="${tier.id}" ondragover="ev.preventDefault();ev.currentTarget.classList.add('drag-over')" ondragleave="ev.currentTarget.classList.remove('drag-over')" ondrop="dropCard(ev,'${tier.id}')">
-        ${inTier.map(r=>cardHTML(r)).join('')}
-      </div>
+      <button class="btn btn-primary" id="addBtn">Ajouter</button>
     </div>`;
+
+  el.innerHTML = '';
+  el.appendChild(addDiv);
+
+  document.getElementById('addBtn').addEventListener('click', addRestaurant);
+  document.getElementById('newName').addEventListener('keydown', e=>{ if(e.key==='Enter') addRestaurant(); });
+
+  // Tier rows
+  TIERS.forEach(tier=>{
+    const inTier = restos.filter(r=>ranking[r.id]===tier.id);
+    const row = document.createElement('div');
+    row.className = 'tier-row';
+
+    const lbl = document.createElement('div');
+    lbl.className = 'tier-label';
+    lbl.style.background = tier.color;
+    lbl.textContent = tier.id;
+
+    const slots = document.createElement('div');
+    slots.className = 'tier-slots';
+    slots.dataset.tier = tier.id;
+    inTier.forEach(r => slots.appendChild(makeCard(r)));
+    setupDropZone(slots, tier.id);
+
+    row.appendChild(lbl);
+    row.appendChild(slots);
+    el.appendChild(row);
   });
 
-  const unranked=restos.filter(r=>!ranking[r.id]);
-  html+=`<div class="unranked-label">Non classés (${unranked.length})</div>
-  <div class="unranked-zone" ondragover="ev.preventDefault();ev.currentTarget.classList.add('drag-over')" ondragleave="ev.currentTarget.classList.remove('drag-over')" ondrop="dropCard(ev,'unranked')">
-    ${unranked.length?unranked.map(r=>cardHTML(r)).join(''):'<span style="color:var(--muted);font-size:13px;align-self:center">Ajoutez un restaurant ci-dessus</span>'}
-  </div>`;
+  // Unranked
+  const unranked = restos.filter(r=>!ranking[r.id]);
+  const ulbl = document.createElement('div');
+  ulbl.className = 'unranked-label';
+  ulbl.textContent = `Non classés (${unranked.length})`;
+  el.appendChild(ulbl);
 
-  el.innerHTML=html;
-}
-
-function cardHTML(r){
-  return `<div class="resto-card" draggable="true" data-id="${r.id}"
-    ondragstart="draggedId='${r.id}';ev.currentTarget.classList.add('dragging');ev.dataTransfer.effectAllowed='move'"
-    ondragend="ev.currentTarget.classList.remove('dragging')">
-    <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px">${r.name}</span>
-    <span class="cuisine-tag">${r.cuisine.split(' ')[0]}</span>
-  </div>`;
-}
-
-window.dropCard = async function(ev, tier){
-  ev.preventDefault();
-  ev.currentTarget.classList.remove('drag-over');
-  if(!draggedId) return;
-  const ranking=allRankings[currentUser]||{};
-  if(tier==='unranked') delete ranking[draggedId];
-  else ranking[draggedId]=tier;
-  await set(ref(db,'rankings/'+currentUser),ranking);
-  draggedId=null;
-};
-
-window.addRestaurant = async function(){
-  const nm=document.getElementById('newName').value.trim();
-  const cu=document.getElementById('newCuisine').value;
-  if(!nm){toast('Entrez un nom de restaurant');return;}
-  const existing=Object.values(allRestaurants).find(r=>r.name.toLowerCase()===nm.toLowerCase());
-  if(existing){toast('Ce restaurant existe déjà !');return;}
-  const id='r'+Date.now();
-  await set(ref(db,'restaurants/'+id),{id,name:nm,cuisine:cu,addedBy:currentUser,addedAt:Date.now()});
-  document.getElementById('newName').value='';
-  toast('✓ '+nm+' ajouté !');
-};
-
-function renderGlobal(){
-  const el=document.getElementById('panel-global');
-  const restos=Object.values(allRestaurants);
-  const users=Object.keys(allUsers);
-
-  if(!restos.length){
-    el.innerHTML='<div class="empty-state">Aucun restaurant ajouté pour l\'instant.</div>';
-    return;
+  const uz = document.createElement('div');
+  uz.className = 'unranked-zone';
+  if(unranked.length){
+    unranked.forEach(r=>uz.appendChild(makeCard(r)));
+  } else if(!restos.length){
+    uz.innerHTML = '<span style="color:var(--muted);font-size:13px;align-self:center">Ajoutez un restaurant ci-dessus</span>';
   }
+  setupDropZone(uz, 'unranked');
+  el.appendChild(uz);
+}
 
-  const scores={};
+function makeCard(r){
+  const d = document.createElement('div');
+  d.className = 'resto-card';
+  d.draggable = true;
+  d.dataset.id = r.id;
+  d.innerHTML = `<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px">${r.name}</span><span class="cuisine-tag">${r.cuisine.split(' ')[0]}</span>`;
+  d.addEventListener('dragstart', e=>{
+    draggedId = r.id;
+    d.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', r.id);
+  });
+  d.addEventListener('dragend', ()=>{ d.classList.remove('dragging'); draggedId=null; });
+  return d;
+}
+
+function setupDropZone(el, tier){
+  el.addEventListener('dragover', e=>{ e.preventDefault(); el.classList.add('over'); });
+  el.addEventListener('dragleave', e=>{ if(!el.contains(e.relatedTarget)) el.classList.remove('over'); });
+  el.addEventListener('drop', async e=>{
+    e.preventDefault();
+    el.classList.remove('over');
+    const id = e.dataTransfer.getData('text/plain') || draggedId;
+    if(!id) return;
+    const ranking = {...(allRankings[currentUser]||{})};
+    if(tier==='unranked') delete ranking[id];
+    else ranking[id] = tier;
+    await set(ref(db,'rankings/'+currentUser), ranking);
+  });
+}
+
+async function addRestaurant(){
+  const nm = document.getElementById('newName').value.trim();
+  const cu = document.getElementById('newCuisine').value;
+  if(!nm){ toast('Entrez un nom de restaurant'); return; }
+  const exists = Object.values(allRestaurants).find(r=>r.name.toLowerCase()===nm.toLowerCase());
+  if(exists){ toast('Ce restaurant existe déjà !'); return; }
+  const id = 'r'+Date.now();
+  await set(ref(db,'restaurants/'+id), {id, name:nm, cuisine:cu, addedBy:currentUser, addedAt:Date.now()});
+  document.getElementById('newName').value = '';
+  toast('✓ '+nm+' ajouté !');
+}
+
+// ── GLOBAL ───────────────────────────────────────────────
+function renderGlobal(){
+  const el = document.getElementById('panel-global');
+  const restos = Object.values(allRestaurants);
+  const users = Object.keys(allUsers);
+  if(!restos.length){ el.innerHTML='<div class="empty-state">Aucun restaurant ajouté pour l\'instant.</div>'; return; }
+
+  const scores = {};
   restos.forEach(r=>{
-    let total=0,count=0;
-    users.forEach(u=>{
-      const rk=allRankings[u]||{};
-      if(rk[r.id]!==undefined){total+=TIER_SCORES[rk[r.id]];count++;}
-    });
-    scores[r.id]={score:count?Math.round(total/count):null,votes:count};
+    let total=0, count=0;
+    users.forEach(u=>{ const rk=allRankings[u]||{}; if(rk[r.id]!==undefined){total+=TIER_SCORES[rk[r.id]];count++;} });
+    scores[r.id] = {score:count?Math.round(total/count):null, votes:count};
   });
 
-  const ranked=restos.filter(r=>scores[r.id].score!==null).sort((a,b)=>scores[b.id].score-scores[a.id].score);
-  const unvoted=restos.filter(r=>scores[r.id].score===null);
-  const top=ranked[0];
+  const ranked = restos.filter(r=>scores[r.id].score!==null).sort((a,b)=>scores[b.id].score-scores[a.id].score);
+  const unvoted = restos.filter(r=>scores[r.id].score===null);
+  const top = ranked[0];
 
-  const statsHTML=`<div class="stats">
+  function tierFromScore(s){ if(s>=85)return'S'; if(s>=65)return'A'; if(s>=45)return'B'; if(s>=25)return'C'; return'D'; }
+  function colorFromTier(t){ return TIERS.find(x=>x.id===t)?.color||'#888'; }
+
+  el.innerHTML = `<div class="stats">
     <div class="stat-card"><div class="val">${restos.length}</div><div class="lbl">Restaurants</div></div>
     <div class="stat-card"><div class="val">${users.length}</div><div class="lbl">Participants</div></div>
     <div class="stat-card"><div class="val">${top?scores[top.id].score+'%':'—'}</div><div class="lbl">Meilleur score</div></div>
   </div>`;
 
-  function tierFromScore(s){if(s>=85)return'S';if(s>=65)return'A';if(s>=45)return'B';if(s>=25)return'C';return'D';}
-  function colorFromTier(t){return TIERS.find(x=>x.id===t)?.color||'#888'}
-
-  let tiersHTML='';
   TIERS.forEach(tier=>{
-    const inTier=ranked.filter(r=>tierFromScore(scores[r.id].score)===tier.id);
+    const inTier = ranked.filter(r=>tierFromScore(scores[r.id].score)===tier.id);
     if(!inTier.length) return;
-    tiersHTML+=`<div class="global-tier-row">
-      <div class="global-tier-label" style="background:${tier.color}">${tier.id}</div>
-      <div class="global-slots">
-        ${inTier.map(r=>{
-          const sc=scores[r.id];
-          const col=colorFromTier(tierFromScore(sc.score));
-          return `<div class="global-card">
-            <div class="gname">${r.name}</div>
-            <div class="gvoters">${sc.votes} vote${sc.votes>1?'s':''} · ${r.cuisine.split(' ')[0]}</div>
-            <div class="score-bar-wrap"><div class="score-bar" style="width:${sc.score}%;background:${col}"></div></div>
-            <div class="score-txt">${sc.score}%</div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>`;
+    const row = document.createElement('div');
+    row.className = 'global-tier-row';
+    row.innerHTML = `<div class="global-tier-label" style="background:${tier.color}">${tier.id}</div>`;
+    const slots = document.createElement('div');
+    slots.className = 'global-slots';
+    inTier.forEach(r=>{
+      const sc = scores[r.id];
+      const col = colorFromTier(tierFromScore(sc.score));
+      const c = document.createElement('div');
+      c.className = 'global-card';
+      c.innerHTML = `<div class="gname">${r.name}</div>
+        <div class="gvoters">${sc.votes} vote${sc.votes>1?'s':''} · ${r.cuisine.split(' ')[0]}</div>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:${sc.score}%;background:${col}"></div></div>
+        <div class="score-txt">${sc.score}%</div>`;
+      slots.appendChild(c);
+    });
+    row.appendChild(slots);
+    el.appendChild(row);
   });
 
-  let unvotedHTML='';
   if(unvoted.length){
-    unvotedHTML=`<div class="unranked-label" style="margin-top:16px">Pas encore votés (${unvoted.length})</div>
-    <div class="unranked-zone" style="cursor:default">
-      ${unvoted.map(r=>`<div class="resto-card" style="cursor:default"><span>${r.name}</span><span class="cuisine-tag">${r.cuisine.split(' ')[0]}</span></div>`).join('')}
-    </div>`;
+    const lbl = document.createElement('div');
+    lbl.className='unranked-label'; lbl.style.marginTop='16px';
+    lbl.textContent=`Pas encore votés (${unvoted.length})`;
+    el.appendChild(lbl);
+    const uz = document.createElement('div');
+    uz.className='unranked-zone'; uz.style.cursor='default';
+    unvoted.forEach(r=>{ const c=document.createElement('div'); c.className='resto-card'; c.style.cursor='default'; c.innerHTML=`<span>${r.name}</span><span class="cuisine-tag">${r.cuisine.split(' ')[0]}</span>`; uz.appendChild(c); });
+    el.appendChild(uz);
   }
-
-  el.innerHTML=statsHTML+tiersHTML+unvotedHTML;
 }
 
+// ── TEAM ─────────────────────────────────────────────────
 function renderTeam(){
-  const el=document.getElementById('panel-team');
-  const users=Object.keys(allUsers);
-  const restos=Object.values(allRestaurants);
-  if(!users.length){el.innerHTML='<div class="empty-state">Aucun collègue inscrit.</div>';return;}
-  el.innerHTML=users.sort().map(u=>{
-    const rk=allRankings[u]||{};
-    const ranked=Object.keys(rk).length;
-    const topCount=Object.values(rk).filter(v=>v==='S'||v==='A').length;
-    const isMe=u===currentUser;
-    const bg=avatarColor(u);
-    const ini=initials(u);
-    const complete=restos.length>0&&ranked===restos.length;
+  const el = document.getElementById('panel-team');
+  const users = Object.keys(allUsers);
+  const restos = Object.values(allRestaurants);
+  if(!users.length){ el.innerHTML='<div class="empty-state">Aucun collègue inscrit.</div>'; return; }
+  el.innerHTML = users.sort().map(u=>{
+    const rk = allRankings[u]||{};
+    const ranked = Object.keys(rk).length;
+    const topCount = Object.values(rk).filter(v=>v==='S'||v==='A').length;
+    const isMe = u===currentUser;
+    const complete = restos.length>0 && ranked===restos.length;
     return `<div class="voter-item">
-      <div class="avatar" style="background:${bg}">${ini}</div>
+      <div class="avatar" style="background:${avatarColor(u)}">${initials(u)}</div>
       <div>
         <div class="vname">${u}${isMe?' <span style="color:var(--accent);font-size:11px">(moi)</span>':''}</div>
         <div class="vtiers">${ranked} restaurant${ranked>1?'s':''} classé${ranked>1?'s':''} · ${topCount} en S/A</div>
@@ -356,11 +369,6 @@ function renderTeam(){
     </div>`;
   }).join('');
 }
-
-// Expose ev for inline handlers
-window.ev=null;
-document.addEventListener('dragover',e=>{window.ev=e});
-document.addEventListener('drop',e=>{window.ev=e});
 </script>
 </body>
 </html>
